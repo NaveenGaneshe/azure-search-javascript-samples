@@ -12,7 +12,7 @@ const request = async (url, method, body) => {
     method,
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer token`,
+      Authorization: `Bearer-add-your-token-here`,
       // Add other headers if needed
     },
   };

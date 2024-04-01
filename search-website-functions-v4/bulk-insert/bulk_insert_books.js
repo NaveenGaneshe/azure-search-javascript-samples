@@ -8,7 +8,7 @@ import {
 
 // Azure AI Search resource settings
 const SEARCH_ENDPOINT = 'https://regn-notesai-search-poc-001.search.windows.net';
-const SEARCH_ADMIN_KEY = 'apiKey';
+const SEARCH_ADMIN_KEY = 'api-Key';
 
 // Azure AI Search index settings
 const SEARCH_INDEX_NAME = 'azureblob-index';
