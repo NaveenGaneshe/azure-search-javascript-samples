@@ -8,17 +8,16 @@
 // 'proxy': 'http://localhost:7071'
 
 const request = async (url, method, body) => {
-
   const requestOptions = {
     method,
     headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer your-token-here`,
-        // Add other headers if needed
-      }
+      "Content-Type": "application/json",
+      Authorization: `Bearer trGtVNQIsoM3BgPmGjfT2K9ExXOrfKBg9TFR99LjgCAzSeDX6Iaw`,
+      // Add other headers if needed
+    },
   };
 
-  if(method !== 'GET' && method !== 'HEAD') {
+  if (method !== "GET" && method !== "HEAD") {
     requestOptions.body = JSON.stringify(body);
   }
 

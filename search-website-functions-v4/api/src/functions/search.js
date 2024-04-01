@@ -43,7 +43,7 @@ app.http('search', {
                 filter: filtersExpression
             };
             console.log(searchOptions);
-
+            debugger;
             // Sending the search request
             const searchResults = await client.search(q, searchOptions);
             console.log(searchResults);
