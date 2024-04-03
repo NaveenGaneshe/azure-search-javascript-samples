@@ -7,11 +7,12 @@ import {
 } from '@azure/search-documents';
 
 // Azure AI Search resource settings
-const SEARCH_ENDPOINT = 'https://regn-notesai-search-poc-001.search.windows.net';
+const SEARCH_ENDPOINT =
+  'https://regn-notesai-search-poc-001.search.windows.net';
 const SEARCH_ADMIN_KEY = 'trGtVNQIsoM3BgPmGjfT2K9ExXOrfKBg9TFR99LjgCAzSeDX6Iaw';
 
 // Azure AI Search index settings
-const SEARCH_INDEX_NAME = 'azureblob-index';
+const SEARCH_INDEX_NAME = 'good-books';
 import SEARCH_INDEX_SCHEMA from './good-books-index.json' assert { type: 'json' };
 
 // Data settings
