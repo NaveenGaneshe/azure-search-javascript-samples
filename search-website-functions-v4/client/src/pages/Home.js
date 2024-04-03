@@ -69,7 +69,7 @@ export default function Home() {
         </StyledImageContainer>
         <StyledTypographyContainer className="TypographyTextContainer">
           <StyledTypography className="Typography">
-            Powered by Microsoft Azure AI Search
+            Powered by Microsoft Azure AI Search | Demo
           </StyledTypography>
         </StyledTypographyContainer>
         <StyledHomeSearchBox className="StyledHomeSearchBox">
