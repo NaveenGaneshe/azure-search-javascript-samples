@@ -18,15 +18,14 @@ const StyledCard = styled(Card)`
 const StyledCardActionArea = styled(CardActionArea)`
   cursor: pointer;
   &:hover: {
-    background-color: #C0DDF5;
-  } 
+    background-color: #c0ddf5;
+  }
 `;
 
 const StyledCardContentImage = styled(CardContent)`
   padding: 16px;
   text-align: center;
   height: auto;
-
 `;
 
 const StyledImg = styled(CardMedia)`
@@ -36,7 +35,6 @@ const StyledImg = styled(CardMedia)`
 `;
 
 export default function BookCardSimple({ document }) {
-
   const shortenTitle = (title) => {
     if (title.length > 20) {
       return title.slice(0, 35) + "...";
@@ -49,14 +47,14 @@ export default function BookCardSimple({ document }) {
       <StyledCardActionArea href={`/details/${document.id}`}>
         <StyledCardContentImage>
           <StyledImg
-            image={document.image_url}
-            title={document.original_title}
-            alt={document.original_title}
+            // image={document.image_url}
+            title={document.metadata_title}
+            alt={document.metadata_storage_file_extension}
           />
         </StyledCardContentImage>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {shortenTitle(document.original_title)}
+            {shortenTitle(document.metadata_title)}
           </Typography>
         </CardContent>
       </StyledCardActionArea>

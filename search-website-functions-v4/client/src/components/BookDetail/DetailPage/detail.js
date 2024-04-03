@@ -17,12 +17,11 @@ const StyledCard = styled(Card)`
   margin: 1em auto;
 
   // center the container on the tab body
-  display: flex; 
+  display: flex;
   justify-content: center;
 `;
 
-const StyledCardContent = styled(CardContent)`
-`;
+const StyledCardContent = styled(CardContent)``;
 
 const StyledTypographyTitle = styled(Typography)`
   font-size: ${fontLarge}px;
@@ -60,13 +59,13 @@ export default function BookCardDetail({ document }) {
   return (
     <StyledCard className="bookdetail-parent">
       <StyledCardContent className="bookdetail-child" align="center">
-        <StyledTypographyTitle>{document.original_title}</StyledTypographyTitle>
+        <StyledTypographyTitle>{document.metadata_title}</StyledTypographyTitle>
         <StyledCardMedia
-          image={document.image_url}
-          title={document.original_title}
-          alt={document.original_title}
+          // image={document.image_url}
+          title={document.metadata_title}
+          alt={document.metadata_storage_file_extension}
         />
-        <StyledDescriptiveText>
+        {/* <StyledDescriptiveText>
           {document.authors?.join("; ")} - {document.original_publication_year}
         </StyledDescriptiveText>
         <StyledDescriptiveText>ISBN {document.isbn}</StyledDescriptiveText>
@@ -77,7 +76,7 @@ export default function BookCardDetail({ document }) {
         ></Rating>
         <StyledDescriptiveText>
           {document.ratings_count} Ratings
-        </StyledDescriptiveText>
+        </StyledDescriptiveText> */}
       </StyledCardContent>
     </StyledCard>
   );
