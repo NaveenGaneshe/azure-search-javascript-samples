@@ -53,28 +53,23 @@ export default function BookCardSimple({ document }) {
     const [blobContent, setBlobContent] = useState('');
 
     useEffect(() => {
+        const fetchBlobContent = async () => {
+            const blobServiceClient = new BlobServiceClient(
+                "https://ecftranslatorapp.blob.core.windows.net/",
+                new DefaultAzureCredential()
+            );
+            const containerClient = blobServiceClient.getContainerClient("notes-source-ai-files");
+            const blobClient = containerClient.getBlobClient("SKM_C450i24031413410_0008.pdf");
 
-        const blobStorageClient = new BlobServiceClient(
-            // this is the blob endpoint of your storage acccount. Available from the portal 
-            // they follow this format: <accountname>.blob.core.windows.net for Azure global
-            // the endpoints may be slightly different from national clouds like US Gov or Azure China
-            "https://ecftranslatorapp.blob.core.windows.net/",
-            new DefaultAzureCredential()
-        )
-        var containerClient = blobStorageClient.getContainerClient("notes-source-ai-files");
+            const downloadBlockBlobResponse = await blobClient.download();
+            const downloaded = (
+                await streamToBuffer(downloadBlockBlobResponse.readableStreamBody)
+            ).toString();
+            console.log("Downloaded blob content:", downloaded);
+            setBlobContent(downloaded);
+        };
 
-        const blobClient = containerClient.getBlobClient("SKM_C450i24031413410_0008.pdf");
-
-        // Get blob content from position 0 to the end
-        // In Node.js, get downloaded data by accessing downloadBlockBlobResponse.readableStreamBody
-        const downloadBlockBlobResponse = await blobClient.download();
-        const downloaded = (
-            await streamToBuffer(downloadBlockBlobResponse.readableStreamBody)
-        ).toString();
-        console.log("Downloaded blob content:", downloaded);
-
-        // [Node.js only] A helper method used to read a Node.js readable stream into a Buffer
-        async function streamToBuffer(readableStream) {
+        const streamToBuffer = async (readableStream) => {
             return new Promise((resolve, reject) => {
                 const chunks = [];
                 readableStream.on("data", (data) => {
@@ -85,41 +80,75 @@ export default function BookCardSimple({ document }) {
                 });
                 readableStream.on("error", reject);
             });
-        }
+        };
 
-        // this uses our container we created earlier
-        //var containerClient = blobStorageClient.getContainerClient("your container name");
-        //const account = "ecftranslatorapp";
-        //const sas = "sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2024-04-18T05:08:46Z&st=2024-04-01T21:08:46Z&spr=https&sig=%2FqU%2Br2YQ70LA73vyo8DD8sXjCislgqT7P%2FaEKB0pYGs%3D";
-        //const containerName = "notes-source-ai-files";
-        //const blobName = "SKM_C450i24031413410_0008.pdf";
-
-        //const blobServiceClient = new BlobServiceClient(`https://${account}.blob.core.windows.net/${sas}`);
-
-        //async function fetchBlobContent() {
-        //    const containerClient = blobServiceClient.getContainerClient(containerName);
-        //    const blobClient = containerClient.getBlobClient(blobName);
-
-        //    // Get blob content
-        //    const downloadBlockBlobResponse = await blobClient.download();
-        //    const downloaded = await blobToString(await downloadBlockBlobResponse.blobBody);
-        //    setBlobContent(downloaded);
-        //}
-
-        //// Function to convert blob to string
-        //async function blobToString(blob) {
-        //    const fileReader = new FileReader();
-        //    return new Promise((resolve, reject) => {
-        //        fileReader.onloadend = (ev) => {
-        //            resolve(ev.target.result);
-        //        };
-        //        fileReader.onerror = reject;
-        //        fileReader.readAsText(blob);
-        //    });
-        //}
-        // Fetch blob content
-        //fetchBlobContent();
+        fetchBlobContent();
     }, []);
+
+    //useEffect(() => {
+
+    //    const blobStorageClient = new BlobServiceClient(
+    //        // this is the blob endpoint of your storage acccount. Available from the portal 
+    //        // they follow this format: <accountname>.blob.core.windows.net for Azure global
+    //        // the endpoints may be slightly different from national clouds like US Gov or Azure China
+    //        "https://ecftranslatorapp.blob.core.windows.net/",
+    //        new DefaultAzureCredential()
+    //    )
+    //    var containerClient = blobStorageClient.getContainerClient("notes-source-ai-files");
+
+    //    const blobClient = containerClient.getBlobClient("SKM_C450i24031413410_0008.pdf");
+
+    //    // Get blob content from position 0 to the end
+    //    // In Node.js, get downloaded data by accessing downloadBlockBlobResponse.readableStreamBody
+    //    const downloadBlockBlobResponse = await blobClient.download();
+    //    const downloaded = (
+    //        await streamToBuffer(downloadBlockBlobResponse.readableStreamBody)
+    //    ).toString();
+    //    console.log("Downloaded blob content:", downloaded);
+
+    //    // [Node.js only] A helper method used to read a Node.js readable stream into a Buffer
+    //    async function streamToBuffer(readableStream) {
+    //        return new Promise((resolve, reject) => {
+    //            const chunks = [];
+    //            readableStream.on("data", (data) => {
+    //                chunks.push(data instanceof Buffer ? data : Buffer.from(data));
+    //            });
+    //            readableStream.on("end", () => {
+    //                resolve(Buffer.concat(chunks));
+    //            });
+    //            readableStream.on("error", reject);
+    //        });
+    //    }
+
+    //    // this uses our container we created earlier
+    //    //var containerClient = blobStorageClient.getContainerClient("your container name");
+       
+    //    //const blobServiceClient = new BlobServiceClient(`https://${account}.blob.core.windows.net/${sas}`);
+
+    //    //async function fetchBlobContent() {
+    //    //    const containerClient = blobServiceClient.getContainerClient(containerName);
+    //    //    const blobClient = containerClient.getBlobClient(blobName);
+
+    //    //    // Get blob content
+    //    //    const downloadBlockBlobResponse = await blobClient.download();
+    //    //    const downloaded = await blobToString(await downloadBlockBlobResponse.blobBody);
+    //    //    setBlobContent(downloaded);
+    //    //}
+
+    //    //// Function to convert blob to string
+    //    //async function blobToString(blob) {
+    //    //    const fileReader = new FileReader();
+    //    //    return new Promise((resolve, reject) => {
+    //    //        fileReader.onloadend = (ev) => {
+    //    //            resolve(ev.target.result);
+    //    //        };
+    //    //        fileReader.onerror = reject;
+    //    //        fileReader.readAsText(blob);
+    //    //    });
+    //    //}
+    //    // Fetch blob content
+    //    //fetchBlobContent();
+    //}, []);
 
     return (
         <StyledCard>
