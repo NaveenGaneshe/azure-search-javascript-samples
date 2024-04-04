@@ -70,9 +70,8 @@ export default function BookCardSimple({ document }) {
 
             // Get blob content
             const downloadBlockBlobResponse = await blobClient.download();
-            const blob = await downloadBlockBlobResponse.blobBody;
-            const blobContent = await blobToString(blob);
-            return URL.createObjectURL(blobContent);
+            const blob = await downloadBlockBlobResponse.blobBody; // Get the Blob object directly
+            return URL.createObjectURL(blob); // Pass the Blob object to createObjectURL
         }
 
         // Function to convert blob to string
