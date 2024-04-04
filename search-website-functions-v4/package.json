@@ -7,7 +7,6 @@
     "doc": "docs"
   },
   "dependencies": {
-    "atob": "^2.1.2",
     "concurrently": "^7.5.0"
   },
   "devDependencies": {
