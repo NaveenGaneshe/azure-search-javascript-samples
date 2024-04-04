@@ -65,6 +65,7 @@ export default function BookCardSimple({ document }) {
                       Image Path: {decideBase64(document.metadata_storage_path)}
           </Typography>
         </CardContent>
+          <iframe src={decideBase64(document.metadata_storage_path)}></iframe>
       </StyledCardActionArea>
     </StyledCard>
   );
