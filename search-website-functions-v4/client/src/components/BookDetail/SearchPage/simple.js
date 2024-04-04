@@ -54,7 +54,9 @@ export default function BookCardSimple({ document }) {
         </StyledCardContentImage>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {shortenTitle(document.metadata_title)}
+                      {shortenTitle(document.metadata_title)}
+                      <br/>
+                    Image Path: {document.metadata_storage_path}
           </Typography>
         </CardContent>
       </StyledCardActionArea>
