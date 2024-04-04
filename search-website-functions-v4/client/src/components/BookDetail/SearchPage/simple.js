@@ -5,6 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import styled from "@emotion/styled";
+import atob from "atob"
 
 const StyledCard = styled(Card)`
   width: 10rem;
@@ -42,24 +43,24 @@ export default function BookCardSimple({ document }) {
     return title;
     };
 
-    const decideBase64 = (input) => {
-        let str = input.replace(/=+$/, '');
-        let output = '';
+    //const decideBase64 = (input) => {
+    //    let str = input.replace(/=+$/, '');
+    //    let output = '';
 
-        if (str.length % 4 == 1) {
-            throw new Error("'atob' failed: The string to be decoded is not correctly encoded.");
-        }
-        for (let bc = 0, bs = 0, buffer, i = 0;
-            buffer = str.charAt(i++);
+    //    if (str.length % 4 == 1) {
+    //        throw new Error("'atob' failed: The string to be decoded is not correctly encoded.");
+    //    }
+    //    for (let bc = 0, bs = 0, buffer, i = 0;
+    //        buffer = str.charAt(i++);
 
-            ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer,
-                bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0
-        ) {
-            buffer = chars.indexOf(buffer);
-        }
+    //        ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer,
+    //            bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0
+    //    ) {
+    //        buffer = chars.indexOf(buffer);
+    //    }
 
-        return output;
-    }
+    //    return output;
+    //}
 
   return (
     <StyledCard>
@@ -75,7 +76,7 @@ export default function BookCardSimple({ document }) {
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                       {shortenTitle(document.metadata_title)}
                       <br/>
-                      Image Path: {decideBase64(document.metadata_storage_path)}
+                      Image Path: {atob(document.metadata_storage_path)}
           </Typography>
         </CardContent>
       </StyledCardActionArea>
