@@ -53,7 +53,7 @@ export default function BookCardSimple({ document }) {
 
     useEffect(() => {
         const account = "ecftranslatorapp";
-        const sas = "sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2024-04-09T04:20:01Z&st=2024-04-02T20:20:01Z&spr=https&sig=%2BeThwvxsSxGkLSPToi6H6aAZkSCes2d76N5rz9sfy1A%3D";
+        const sas = "sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2024-04-16T04:38:16Z&st=2024-04-02T20:38:16Z&spr=https&sig=je2fvPVmcYtd2tYdeeWtBIQnGFNEBl6pESlK4Q9NG4c%3D";
         const containerName = "notes-source-ai-files";
         const blobName = "SKM_C450i24031413410_0008.pdf";
 
