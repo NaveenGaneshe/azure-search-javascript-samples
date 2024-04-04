@@ -35,11 +35,11 @@ const StyledImg = styled(CardMedia)`
 `;
 
 export default function BookCardSimple({ document }) {
-  const shortenTitle = (title) => {
-    if (title.length > 20) {
-      return title.slice(0, 35) + "...";
-    }
-    return title;
+    const shortenTitle = (title) => {
+        if (title.length > 20) {
+            return title.slice(0, 35) + "...";
+        }
+        return title;
     };
 
     const decodeBase64 = (input) => {
@@ -48,25 +48,60 @@ export default function BookCardSimple({ document }) {
         return output;
     }
 
-  return (
-    <StyledCard>
-      <StyledCardActionArea href={`/details/${document.id}`}>
-        <StyledCardContentImage>
-          <StyledImg
-            // image={document.image_url}
-            title={document.metadata_title}
-            alt={document.metadata_storage_file_extension}
-          />
-        </StyledCardContentImage>
-        <CardContent>
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                      {shortenTitle(document.metadata_title)}
-                      <br/>
-                      Image Path: {decodeBase64(document.metadata_storage_path)}
-          </Typography>
-        </CardContent>
-              <iframe src={decodeBase64(document.metadata_storage_path)}></iframe>
-      </StyledCardActionArea>
-    </StyledCard>
-  );
+    const [blobContent, setBlobContent] = useState('');
+
+    useEffect(() => {
+        const account = "ecftranslatorapp";
+        const sas = "sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2024-04-05T03:09:28Z&st=2024-04-04T19:09:28Z&spr=https&sig=7R7BdJ7WWB%2F075e3m5qoss48I%2BflKV81FZyOqr3Kmvg%3D";
+        const containerName = "notes-source-ai-files";
+        const blobName = "SKM_C450i24031413410_0008.pdf";
+
+        const blobServiceClient = new BlobServiceClient(`https://${account}.blob.core.windows.net${sas}`);
+
+        async function fetchBlobContent() {
+            const containerClient = blobServiceClient.getContainerClient(containerName);
+            const blobClient = containerClient.getBlobClient(blobName);
+
+            // Get blob content
+            const downloadBlockBlobResponse = await blobClient.download();
+            const downloaded = await blobToString(await downloadBlockBlobResponse.blobBody);
+            setBlobContent(downloaded);
+        }
+
+        // Function to convert blob to string
+        async function blobToString(blob) {
+            const fileReader = new FileReader();
+            return new Promise((resolve, reject) => {
+                fileReader.onloadend = (ev) => {
+                    resolve(ev.target.result);
+                };
+                fileReader.onerror = reject;
+                fileReader.readAsText(blob);
+            });
+        }
+        // Fetch blob content
+        fetchBlobContent();
+    }, []);
+
+    return (
+        <StyledCard>
+            <StyledCardActionArea href={`/details/${document.id}`}>
+                <StyledCardContentImage>
+                    <StyledImg
+                        // image={document.image_url}
+                        title={document.metadata_title}
+                        alt={document.metadata_storage_file_extension}
+                    />
+                </StyledCardContentImage>
+                <CardContent>
+                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                        {shortenTitle(document.metadata_title)}
+                        <br />
+                        Image Path: {blobContent}
+                    </Typography>
+                </CardContent>
+                <iframe src={decodeBase64(document.metadata_storage_path)}></iframe>
+            </StyledCardActionArea>
+        </StyledCard>
+    );
 }
