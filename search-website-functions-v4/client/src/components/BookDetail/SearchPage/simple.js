@@ -42,7 +42,7 @@ export default function BookCardSimple({ document }) {
     return title;
     };
 
-    const decideBase64 = (input) => {
+    const decodeBase64 = (input) => {
         var atob = require('atob');
         var output = atob(input);
         return output;
@@ -62,10 +62,10 @@ export default function BookCardSimple({ document }) {
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                       {shortenTitle(document.metadata_title)}
                       <br/>
-                      Image Path: {decideBase64(document.metadata_storage_path)}
+                      Image Path: {decodeBase64(document.metadata_storage_path)}
           </Typography>
         </CardContent>
-          <iframe src={decideBase64(document.metadata_storage_path)}></iframe>
+              <iframe src={decodeBase64(document.metadata_storage_path)}></iframe>
       </StyledCardActionArea>
     </StyledCard>
   );
