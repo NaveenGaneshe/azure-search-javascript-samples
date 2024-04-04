@@ -57,7 +57,7 @@ export default function BookCardSimple({ document }) {
         const containerName = "notes-source-ai-files";
         const blobName = "SKM_C450i24031413410_0008.pdf";
 
-        const blobServiceClient = new BlobServiceClient(`https://${account}.blob.core.windows.net${sas}`);
+        const blobServiceClient = new BlobServiceClient(`https://${account}.blob.core.windows.net/${sas}`);
 
         async function fetchBlobContent() {
             const containerClient = blobServiceClient.getContainerClient(containerName);
@@ -101,7 +101,7 @@ export default function BookCardSimple({ document }) {
                         Image Path: {blobContent}
                     </Typography>
                 </CardContent>
-                <iframe src={decodeBase64(document.metadata_storage_path)}></iframe>
+                {/*<iframe src={decodeBase64(document.metadata_storage_path)}></iframe>*/}
             </StyledCardActionArea>
         </StyledCard>
     );
