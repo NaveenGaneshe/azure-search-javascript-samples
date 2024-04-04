@@ -50,7 +50,7 @@ export default function BookCardSimple({ document }) {
     }
 
     const [blobContent, setBlobContent] = useState('');
-
+    const [iframeSrc, setIframeSrc] = useState('');
     useEffect(() => {
         const blobSasUrl = "https://ecftranslatorapp.blob.core.windows.net/?sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2024-04-18T05:41:52Z&st=2024-04-01T21:41:52Z&spr=https&sig=f0pbuGqjDY84WFsCbEUcuG1iReUWe2Zxsh7GccFBxpY%3D";
         // Create a new BlobServiceClient
@@ -70,8 +70,9 @@ export default function BookCardSimple({ document }) {
 
             // Get blob content
             const downloadBlockBlobResponse = await blobClient.download();
-            const downloaded = await blobToString(await downloadBlockBlobResponse.blobBody);
-            setBlobContent(downloaded);
+            const blob = await downloadBlockBlobResponse.blobBody;
+            const blobContent = await blobToString(blob);
+            return URL.createObjectURL(blobContent);
         }
 
         // Function to convert blob to string
@@ -82,22 +83,25 @@ export default function BookCardSimple({ document }) {
                     resolve(ev.target.result);
                 };
                 fileReader.onerror = reject;
-                fileReader.readAsText(blob);
+                fileReader.readAsDataURL(blob);
             });
         }
-        // Fetch blob content
-        fetchBlobContent();
+
+        fetchBlobContent().then((blobContentUrl) => {
+            setIframeSrc(blobContentUrl);
+        });
     }, []);
 
     return (
         <StyledCard>
             <StyledCardActionArea href={`/details/${document.id}`}>
                 <StyledCardContentImage>
-                    <StyledImg
-                        // image={document.image_url}
-                        title={document.metadata_title}
-                        alt={document.metadata_storage_file_extension}
-                    />
+                    {/*<StyledImg*/}
+                    {/*    // image={document.image_url}*/}
+                    {/*    title={document.metadata_title}*/}
+                    {/*    alt={document.metadata_storage_file_extension}*/}
+                    {/*/>*/}
+                    <iframe src={iframeSrc}></iframe>
                 </StyledCardContentImage>
                 <CardContent>
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
