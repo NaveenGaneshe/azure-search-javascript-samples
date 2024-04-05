@@ -64,9 +64,9 @@ export default function BookCardSimple({ document }) {
 
         //const blobClient = containerClient.getBlobClient(blobName);
 
-        async function fetchBlobContent() {
+        async function fetchBlobContent(inputBase64) {
             const containerClient = blobServiceClient.getContainerClient(containerName);
-            const blobClient = containerClient.getBlobClient(blobName);
+            const blobClient = containerClient.getBlobClient(inputBase64);
 
             // Get blob content
             const downloadBlockBlobResponse = await blobClient.download();
@@ -86,7 +86,7 @@ export default function BookCardSimple({ document }) {
             });
         }
 
-        fetchBlobContent().then((blobContentUrl) => {
+        fetchBlobContent(document.metadata_storage_path).then((blobContentUrl) => {
             setIframeSrc(blobContentUrl);
         });
     }, []);
