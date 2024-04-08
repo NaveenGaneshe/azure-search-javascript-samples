@@ -53,11 +53,12 @@ export default function BookCardSimple({ document }) {
     const [iframeSrc, setIframeSrc] = useState('');
     useEffect(() => {
         const blobSasUrl = "https://ecftranslatorapp.blob.core.windows.net/?sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2024-04-18T05:41:52Z&st=2024-04-01T21:41:52Z&spr=https&sig=f0pbuGqjDY84WFsCbEUcuG1iReUWe2Zxsh7GccFBxpY%3D";
+
         // Create a new BlobServiceClient
         const blobServiceClient = new BlobServiceClient(blobSasUrl);
 
         const containerName = "notes-source-ai-files";
-        const blobName = "SKM_C450i24031413410_0008.pdf";
+        const blobName = document.metadata_storage_name;
 
         //// Get a container client from the BlobServiceClient
         //const containerClient = blobServiceClient.getContainerClient(containerName);
@@ -100,6 +101,7 @@ export default function BookCardSimple({ document }) {
                     {/*    title={document.metadata_title}*/}
                     {/*    alt={document.metadata_storage_file_extension}*/}
                     {/*/>*/}
+
                     <iframe src={iframeSrc}></iframe>
                 </StyledCardContentImage>
                 <CardContent>
