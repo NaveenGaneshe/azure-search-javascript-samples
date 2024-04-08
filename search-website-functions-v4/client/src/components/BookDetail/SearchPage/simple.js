@@ -87,7 +87,7 @@ export default function BookCardSimple({ document }) {
             });
         }
 
-        fetchBlobContent(document.metadata_storage_path).then((blobContentUrl) => {
+        fetchBlobContent(blobName).then((blobContentUrl) => {
             setIframeSrc(blobContentUrl);
         });
     }, []);
