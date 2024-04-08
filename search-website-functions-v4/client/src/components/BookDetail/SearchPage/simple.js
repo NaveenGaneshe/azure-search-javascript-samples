@@ -85,9 +85,9 @@ export default function BookCardSimple({ document }) {
                     {/*    alt={document.metadata_storage_file_extension}*/}
                     {/*/>*/}
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                        {shortenTitle(document.metadata_title)}
+                        {shortenTitle(blobName)}
                         <br />
-                        Image Path: {blobContent}
+                     {/*   Image Path: {blobContent}*/}
                     </Typography>
                 </StyledCardContentImage>
             </StyledCardContent>
