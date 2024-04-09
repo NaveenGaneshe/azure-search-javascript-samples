@@ -8,7 +8,7 @@ import styled from "@emotion/styled";
 import { BlobServiceClient } from '@azure/storage-blob';
 
 const StyledCard = styled(Card)`
-  width: 10rem;
+  width: 50rem;
   padding: 16px;
   text-align: center;
   margin: 10px;
@@ -106,9 +106,9 @@ export default function BookCardSimple({ document }) {
                 </StyledCardContentImage>
                 <CardContent>
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                        {shortenTitle(document.metadata_title)}
+                        {document.metadata_storage_name}
                         <br />
-                        Image Path: {blobContent}
+                        Text: {merged_content}
                     </Typography>
                 </CardContent>
                 {/*<iframe src={decodeBase64(document.metadata_storage_path)}></iframe>*/}
