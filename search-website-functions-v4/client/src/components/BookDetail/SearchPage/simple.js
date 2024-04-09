@@ -13,7 +13,7 @@ const StyledCard = styled(Card)`
   text-align: center;
   margin: 10px;
   inline-block;
-  max-height: 18rem;
+  max-height: 23rem;
 `;
 
 const StyledCardActionArea = styled(CardActionArea)`
@@ -106,9 +106,9 @@ export default function BookCardSimple({ document }) {
                 </StyledCardContentImage>
                 <CardContent>
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                        {document.metadata_storage_name}
+                        <b>File Name:</b> {document.metadata_storage_name}
                         <br />
-                        Text: {document.merged_content}
+                        <b>Text:</b> {document.merged_content}
                     </Typography>
                 </CardContent>
                 {/*<iframe src={decodeBase64(document.metadata_storage_path)}></iframe>*/}
