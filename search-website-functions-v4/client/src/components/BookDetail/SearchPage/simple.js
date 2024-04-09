@@ -108,7 +108,7 @@ export default function BookCardSimple({ document }) {
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                         {document.metadata_storage_name}
                         <br />
-                        Text: {merged_content}
+                        Text: {document.merged_content}
                     </Typography>
                 </CardContent>
                 {/*<iframe src={decodeBase64(document.metadata_storage_path)}></iframe>*/}
